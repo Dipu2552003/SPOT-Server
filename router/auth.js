@@ -51,7 +51,11 @@ router.post("/signin", async (req, res) => {
     const token = jwt.sign({ userId: user._id }, "your-secret-key", {
       expiresIn: "1h",
     });
-    res.status(200).json({ token });
+    // Include userId in the response
+    res.status(200).json({
+      token,
+      userId: user._id, // Add userId to the response
+    });
   } catch (error) {
     res.status(500).json({ error: "Login failed" });
   }
