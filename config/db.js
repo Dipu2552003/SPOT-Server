@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
-const dbURI = process.env.mongoURI || "mongodb://localhost:27017/spot";
+require("dotenv").config(); // Load environment variables
+
+const dbURI = process.env.MONGODB_URI;
+
+// Set the strictQuery option to suppress deprecation warnings
+mongoose.set("strictQuery", false); // or true, based on your preference
 
 const connectDB = async () => {
   try {
@@ -9,7 +14,7 @@ const connectDB = async () => {
     });
     console.log("MongoDB is Connected...");
   } catch (err) {
-    console.error(err.message);
+    console.error("Error connecting to MongoDB:", err.message);
     process.exit(1);
   }
 };
